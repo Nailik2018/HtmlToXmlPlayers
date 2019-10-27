@@ -1,0 +1,18 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+/venv
+*.launch
+.settings/
+*.sublime-workspace
+
+# Inifiles
+database.ini
+
+# System Files
+.DS_Store
+Thumbs.db
