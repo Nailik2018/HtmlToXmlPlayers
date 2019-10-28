@@ -25,24 +25,34 @@ class WebsiteReader():
         url = self.__url
         r = requests.get(url)
         soup = BeautifulSoup(r.text, "html.parser")
-        output = []
 
         result_of_player = soup.find_all(class_="border-light-light-gray-bottom")
         i = 0
 
+        output = []
+
         for single in result_of_player:
+            elo_of_victim = ''
+            date_of_match = single.td.get_text()
+            name_of_victim = ''
+            j = 0
 
-            elo_of_victim = single.
-            print(elo_of_victim)
-
-            if "td" in single:
-                print("JAAAAAAAAAa")
-            else:
-                print("--------")
-                #print(single)
-
+            for s in single:
+                if j == 5:
+                    elo_of_victim = s.get_text()
+                if j == 7:
+                    name_of_victim = s.get_text()
+                j += 1
+                #output.append(elo_of_victim)
             i += 1
 
+            player = {
+                "date_of_match": date_of_match,
+                "elo_of_victim": elo_of_victim,
+                "name_of_victim": name_of_victim.strip()
+            }
+
+            output.append(player)
         print(result_of_player[1])
 
         return output
