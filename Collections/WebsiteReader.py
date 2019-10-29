@@ -32,29 +32,15 @@ class WebsiteReader():
         output = []
 
         for single in result_of_player:
-            elo_of_victim = ''
-            date_of_match = single.td.get_text()
-            name_of_victim = ''
-            my_elo = ''
-            new_elos = ''
-            gewinn_wahrscheinlichkeit = ''
-            j = 0
+            date_of_match = single.contents[1].get_text().strip()
+            match_place = single.contents[3].get_text().strip()
+            my_elo = single.contents[5].get_text().strip()
+            name_of_victim = single.contents[7].get_text().strip()
+            elo_of_victim = single.contents[9].get_text().strip()
+            #win_chance = single.contents[11].get_text()
+            #new_elos = single.contents[13].get_text()
+            win_chance = ''
 
-            for s in single:
-                if j == 5:
-                    my_elo = s.get_text().strip()
-                if j == 7:
-                    name_of_victim = s.get_text().strip()
-                if j == 9:
-                    elo_of_victim = s.get_text().strip()
-                if j == 11:
-                    zahl = str(s.get_text().strip())
-                    gewinn_wahrscheinlichkeit = zahl
-                if j == 13:
-                    new_elos = str(s.get_text().strip())
-                    print(new_elos)
-                j += 1
-                #output.append(elo_of_victim)
             i += 1
 
             player = {
@@ -62,13 +48,11 @@ class WebsiteReader():
                 "elo_of_victim": elo_of_victim,
                 "name_of_victim": name_of_victim,
                 "my_elo": my_elo,
-                "gewinn_wahrscheinlichkeit": gewinn_wahrscheinlichkeit,
-                "new_elos": new_elos,
+                "win_chance": win_chance,
+                #"new_elos": new_elos,
+                "match_place": match_place,
             }
-
             output.append(player)
-        print(result_of_player[1])
-
         return output
 
     def htmlSeperatorByID(self, id):
