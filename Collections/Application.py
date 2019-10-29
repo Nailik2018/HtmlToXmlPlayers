@@ -7,6 +7,6 @@ class Application():
     def run(self):
         player = WebsiteReader(self.__url)
         print("URL: " + str(player.getUrl()))
-        output = player.getHtml()
+        output = player.changeHtmlToList()
         print(output)
 
