@@ -33,10 +33,9 @@ class XMLWriter():
         self.__xml_filename = xml_filename
 
     def write(self, data_sets):
+        
         root = Element('player')
         tree = ElementTree(root)
-
-
         str_my_elo = 'my_elo'
         ver = SubElement(root, str_my_elo)
         my_elo = data_sets[0][str_my_elo]
