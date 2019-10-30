@@ -1,3 +1,21 @@
+
+###################################################################################################################
+###################################################################################################################
+###################################################################################################################
+###                                                                                                             ###
+###                                                                                                             ###
+###                                                                                                             ###
+###                                        @Autor Ki-LIAN                                                       ###
+###                                        @Date 30.10.2019                                                     ###
+###                                        @WebsiteReader                                                       ###
+###                                        Liest clickTT Webseite aus und stellt Struktur zurverfügung          ###
+###                                                                                                             ###
+###                                                                                                             ###
+###                                                                                                             ###
+###################################################################################################################
+###################################################################################################################
+###################################################################################################################
+
 from bs4 import BeautifulSoup
 import requests
 
@@ -14,23 +32,17 @@ class WebsiteReader():
     def setUrl(self, url):
         self.__url = url
 
-    def getHtml2(self):
-        page = requests.get(self.__url)
-        self.page_content = page.content
-        soup = BeautifulSoup(self.page_content, 'html.parser')
-        output = soup.prettify()
-        return output
-
-    def changeHtmlToList(self):
+    # ------------------------------------------------------------------------------------------------------------------
+    # Funktion liest Webseite ab classname aus
+    # Relevante Daten werden in liste welche aus Dictionarys besteht geschrieben und zurück gegeben
+    # ------------------------------------------------------------------------------------------------------------------
+    def changeHtmlToList(self, classname):
         url = self.__url
         r = requests.get(url)
         soup = BeautifulSoup(r.text, "html.parser")
-
-        result_of_player = soup.find_all(class_="border-light-light-gray-bottom")
+        result_of_player = soup.find_all(class_=classname)
         i = 0
-
         output = []
-
         for single in result_of_player:
             date_of_match = single.contents[1].get_text().strip()
             match_place = single.contents[3].get_text().strip()
@@ -42,7 +54,6 @@ class WebsiteReader():
             #win_chance = single.contents[11].get_text()
             #new_elos = single.contents[13].get_text()
             win_chance = ''
-
             i += 1
 
             player = {
@@ -57,9 +68,3 @@ class WebsiteReader():
             }
             output.append(player)
         return output
-
-    def htmlSeperatorByID(self, id):
-        output = []
-        soup = BeautifulSoup(self.page_content, 'html.parser')
-        event_month = soup.find(id=id)
-        return event_month
