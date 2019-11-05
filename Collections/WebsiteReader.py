@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 ###################################################################################################################
 ###################################################################################################################
@@ -51,6 +52,17 @@ class WebsiteReader():
             #print(classing_of_victim)
             name_of_victim = single.contents[7].get_text().strip()
             elo_of_victim = single.contents[9].get_text().strip()
+
+            name = name_of_victim.split(" ")
+            indexes = len(name)
+
+            if indexes <= 1:
+                firstname_of_victim = ""
+                lastname_of_victim = ""
+            else:
+                firstname_of_victim = name[0].replace(",", "")
+                lastname_of_victim = name[1]
+
             #win_chance = single.contents[11].get_text()
             #new_elos = single.contents[13].get_text()
             win_chance = ''
@@ -60,6 +72,8 @@ class WebsiteReader():
                 "date_of_match": date_of_match,
                 "elo_of_victim": elo_of_victim,
                 "name_of_victim": name_of_victim,
+                "firstname_of_victim": firstname_of_victim,
+                "lastname_of_victim": lastname_of_victim,
                 #"classing_of_victim": classing_of_victim,
                 "my_elo": my_elo,
                 "win_chance": win_chance,
