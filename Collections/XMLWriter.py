@@ -48,6 +48,7 @@ class XMLWriter():
         str_lastname_of_victim = 'lastname_of_victim'
 
         for data in data_sets:
+
             my_elo = data[str_my_elo]
             date_of_match = data[str_date_of_match]
             elo_of_victim = data[str_elo_of_victim]
@@ -78,7 +79,9 @@ class XMLWriter():
             ver.text = match_place
 
         #ET.ElementTree(testtag).write('testunicode.xml', encoding="UTF-8", xml_declaration=True)
-        tree.write(open(self.get_filename(), 'w'), encoding="unicode")
+
+        tree.write(self.get_filename(), encoding="utf-8")
+        #tree.write(open(self.get_filename(), 'w'), encoding="unicode")
 
 
 

@@ -11,7 +11,7 @@ class PlayerDatabase():
 
         output = []
         db_config = configparser.ConfigParser()
-        db_config.read("../configurations/database.ini")
+        db_config.read("configurations/database.ini")
         user = ast.literal_eval(db_config.get("DATABASE", "dbuser"))
         db = ast.literal_eval(db_config.get("DATABASE", "db"))
         password = ast.literal_eval(db_config.get("DATABASE", "password"))
@@ -38,8 +38,5 @@ class PlayerDatabase():
                 'lastname': element[2],
             }
             output.append(player)
-        return output
 
-play = PlayerDatabase()
-a = play.select_players_from_db()
-print(a)
+        return output
