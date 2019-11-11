@@ -52,12 +52,7 @@ class Application():
             lastname = player['lastname'].lower()
             licenceNr = str(player['licenceNr'])
 
-            #url = "https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/eloFilter?lastname=" + lastname + "&federation=STT&rankingDate=" + date_of_ranking + "&sex=WONoSelectionString&firstname=" + firstname + "&ranking=355425655"
-            #url = "https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/eloFilter?lastname=" + lastname + "&federation=STT&rankingDate=" + date_of_ranking + "&sex=WONoSelectionString&firstname=" + firstname
-
-            #url = "https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/eloFilter?sex=WONoSelectionString&federation=STT&rankingDate=10.11.2019&licenceNr="+ licenceNr + "&ranking=" + "355426816"
             url = "https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/eloFilter?sex=WONoSelectionString&federation=STT&rankingDate=10.11.2019&licenceNr=" + licenceNr
-
             classname = "result-set"
             url_to_route = URLRouter(url)
             ranking = url_to_route.get_ranking(classname)
