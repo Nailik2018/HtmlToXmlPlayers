@@ -34,36 +34,49 @@ class Application():
     # ------------------------------------------------------------------------------------------------------------------
     def run(self):
 
-        start = time()
+        try:
 
-        play = PlayerDatabase()
-        all_players = play.select_players_from_db()
+            start = time()
 
-        today = date.today()
-        print(today.day)
-        print(today.month)
-        print(today.year)
+            play = PlayerDatabase()
+            all_players = play.select_players_from_db()
 
-        date_of_ranking = "10.11.2019"
+            today = date.today()
+            print(today.day)
+            print(today.month)
+            print(today.year)
 
-        for player in all_players:
-            print(player)
-            firstname = player['firstname'].lower()
-            lastname = player['lastname'].lower()
-            licenceNr = str(player['licenceNr'])
+            if today.day <= 10:
+                today.day = 10
+                today.month = today.month - 1
 
-            url = "https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/eloFilter?sex=WONoSelectionString&federation=STT&rankingDate=10.11.2019&licenceNr=" + licenceNr
-            classname = "result-set"
-            url_to_route = URLRouter(url)
-            ranking = url_to_route.get_ranking(classname)
-            url = "https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/eloFilter?sex=WONoSelectionString&federation=STT&rankingDate=10.11.2019&licenceNr=" + licenceNr + "&ranking=" + ranking
+            date_of_ranking = str(today.day) + "." + str(today.month) + "." + str(today.year)
+            #date_of_ranking = "10.11.2019"
 
-            player = WebsiteReader(url)
-            print("URL: " + str(player.getUrl()))
-            data_of_player = player.changeHtmlToList(self.__classname)
-            print(data_of_player)
-            xml_player = XMLWriter(firstname + "-" + lastname + ".xml")
-            xml_player.write(data_of_player)
-            print(xml_player.get_filename())
+            for player in all_players:
+                print(player)
+                firstname = player['firstname'].lower()
+                lastname = player['lastname'].lower()
+                licenceNr = str(player['licenceNr'])
 
-        print("--- %s Sekunden" % (time() - start))
+                url = "https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/eloFilter?sex=WONoSelectionString&federation=STT&rankingDate=10.11.2019&licenceNr=" + licenceNr
+                # url = "https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/eloFilter?sex=WONoSelectionString&federation=STT&rankingDate=" + date_of_ranking + "&licenceNr=" + licenceNr
+                classname = "result-set"
+                url_to_route = URLRouter(url)
+                ranking = url_to_route.get_ranking(classname)
+                url = "https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/eloFilter?sex=WONoSelectionString&federation=STT&rankingDate=10.11.2019&licenceNr=" + licenceNr + "&ranking=" + ranking
+                # url = "https://www.click-tt.ch/cgi-bin/WebObjects/nuLigaTTCH.woa/wa/eloFilter?sex=WONoSelectionString&federation=STT&rankingDate=" + date_of_ranking + "&licenceNr=" + licenceNr + "&ranking=" + ranking
+
+                player = WebsiteReader(url)
+                print("URL: " + str(player.getUrl()))
+                data_of_player = player.changeHtmlToList(self.__classname)
+                print(data_of_player)
+                xml_player = XMLWriter(firstname + "-" + lastname + ".xml")
+                xml_player.write(data_of_player)
+                print(xml_player.get_filename())
+
+            print("--- %s Sekunden" % (time() - start))
+
+        except Exception as e:
+            print(e)
+
